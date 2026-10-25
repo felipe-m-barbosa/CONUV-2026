@@ -1,0 +1,112 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px 16px;
+    font-family: Arial, sans-serif;
+    background: #f2f4f8;
+    color: #222;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 28px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px #00000012;
+}
+
+h1, h2 {
+    color: #17365d;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font: inherit;
+}
+
+textarea {
+    min-height: 70px;
+    resize: vertical;
+}
+
+.botoes {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+button {
+    padding: 9px 13px;
+    border: none;
+    border-radius: 5px;
+    background: #1769aa;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+.secundario {
+    background: #666;
+}
+
+.editar {
+    background: #218838;
+}
+
+.excluir {
+    background: #c62828;
+}
+
+#mensagem {
+    min-height: 20px;
+}
+
+.tabela-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 11px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background: #eaf0f7;
+}
+
+td.acoes {
+    white-space: nowrap;
+}
+
+td.acoes button {
+    margin: 2px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 16px;
+    }
+}
