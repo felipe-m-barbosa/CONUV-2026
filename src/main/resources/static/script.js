@@ -187,9 +187,12 @@ btnCancelarCli.addEventListener("click", () => {
 
 // --- VENDAS ---
 const vendaForm = document.getElementById("vendaForm");
+const vendaId = document.getElementById("venda-id");
 const clienteSelect = document.getElementById("venda-cliente");
 const produtoSelect = document.getElementById("venda-produto");
 const vendaQtd = document.getElementById("venda-quantidade");
+const btnSalvarVenda = document.getElementById("btnSalvarVenda");
+const btnCancelarVenda = document.getElementById("btnCancelarVenda");
 const listaVendas = document.getElementById("listaVendas");
 
 async function carregarOpcoesVendas() {
@@ -231,6 +234,19 @@ function renderizarVendas(vendas) {
         });
 
         const tdAcoes = document.createElement("td");
+        
+        const btnEdit = document.createElement("button");
+        btnEdit.textContent = "Editar";
+        btnEdit.type = "button";
+        btnEdit.onclick = () => {
+            vendaId.value = venda.id;
+            clienteSelect.value = venda.cliente?.id ?? "";
+            produtoSelect.value = venda.produto?.id ?? "";
+            vendaQtd.value = venda.quantidade;
+            btnSalvarVenda.textContent = "Salvar alterações";
+            btnCancelarVenda.hidden = false;
+        };
+
         const btnDel = document.createElement("button");
         btnDel.textContent = "Excluir";
         btnDel.type = "button";
@@ -241,7 +257,7 @@ function renderizarVendas(vendas) {
             }
         };
 
-        tdAcoes.appendChild(btnDel);
+        tdAcoes.append(btnEdit, btnDel);
         linha.appendChild(tdAcoes);
         listaVendas.appendChild(linha);
     });
@@ -253,17 +269,31 @@ async function carregarVendas() {
 
 vendaForm.addEventListener("submit", async e => {
     e.preventDefault();
+    const id = vendaId.value;
     const venda = {
         cliente: { id: Number(clienteSelect.value) },
         produto: { id: Number(produtoSelect.value) },
         quantidade: Number(vendaQtd.value)
     };
+    if (id) venda.id = Number(id);
+
     try {
-        renderizarVendas(await requisitar("/vendas", "POST", venda));
+        renderizarVendas(await requisitar("/vendas", id ? "PUT" : "POST", venda));
         vendaForm.reset();
+        vendaId.value = "";
         vendaQtd.value = "1";
-        exibirMensagem("Venda registrada com sucesso!");
+        btnSalvarVenda.textContent = "Registrar Venda";
+        btnCancelarVenda.hidden = true;
+        exibirMensagem("Venda salva com sucesso!");
     } catch(err) { exibirMensagem(err.message, true); }
+});
+
+btnCancelarVenda.addEventListener("click", () => {
+    vendaForm.reset();
+    vendaId.value = "";
+    vendaQtd.value = "1";
+    btnSalvarVenda.textContent = "Registrar Venda";
+    btnCancelarVenda.hidden = true;
 });
 
 // Inicialização automática ao carregar a página

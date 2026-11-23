@@ -24,6 +24,11 @@ public class VendaController {
         return servicoVendas.list();
     }
 
+    @PutMapping
+    List<Venda> update(@RequestBody Venda venda) {
+        return servicoVendas.update(venda);
+    }
+
     @DeleteMapping("{id}")
     List<Venda> delete(@PathVariable("id") Long id) {
         return servicoVendas.delete(id);

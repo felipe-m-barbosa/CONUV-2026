@@ -43,6 +43,26 @@ public class ServicoVendas {
         return list();
     }
 
+    public List<Venda> update(Venda venda) {
+        // Valida se o cliente existe
+        Cliente cliente = repositorioClientes.findById(venda.getCliente().getId())
+            .orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
+
+        // Valida se o produto existe
+        Produto produto = repositorioProdutos.findById(venda.getProduto().getId())
+            .orElseThrow(() -> new RuntimeException("Produto não encontrado!"));
+
+        venda.setCliente(cliente);
+        venda.setProduto(produto);
+
+        // Recalcula o valor total automaticamente
+        double total = produto.getPreco() * venda.getQuantidade();
+        venda.setValorTotal(total);
+
+        repositorioVendas.save(venda);
+        return list();
+    }
+
     public List<Venda> list() {
         return repositorioVendas.findAll();
     }
