@@ -19,6 +19,30 @@ body {
     box-shadow: 0 2px 12px #00000012;
 }
 
+/* Estilo das Abas */
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+    border-bottom: 2px solid #eaf0f7;
+    padding-bottom: 12px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background: #eaf0f7;
+    color: #17365d;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    background: #1769aa;
+    color: white;
+}
+
 h1, h2 {
     color: #17365d;
 }
@@ -30,7 +54,7 @@ form {
     margin-bottom: 20px;
 }
 
-input, textarea {
+input, textarea, select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -66,16 +90,10 @@ button:hover {
     background: #666;
 }
 
-.editar {
-    background: #218838;
-}
-
-.excluir {
-    background: #c62828;
-}
-
 #mensagem {
     min-height: 20px;
+    margin-bottom: 15px;
+    font-weight: bold;
 }
 
 .tabela-container {
@@ -95,14 +113,6 @@ th, td {
 
 th {
     background: #eaf0f7;
-}
-
-td.acoes {
-    white-space: nowrap;
-}
-
-td.acoes button {
-    margin: 2px;
 }
 
 @media (max-width: 600px) {
