@@ -1,56 +1,137 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD de Produtos</title>
+    <title>Sistema de Gestão - Loja</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <main class="container">
-        <h1>Cadastro de Produtos</h1>
+        <h1>Sistema de Gestão (Loja)</h1>
 
-        <form id="produtoForm">
-            <input type="hidden" id="id">
-
-            <label for="nome">Nome</label>
-            <input type="text" id="nome" maxlength="100" required>
-
-            <label for="descricao">Descrição</label>
-            <textarea id="descricao" maxlength="500"></textarea>
-
-            <label for="preco">Preço (R$)</label>
-            <input type="number" id="preco"
-                   min="0.01" step="0.01" required>
-
-            <div class="botoes">
-                <button type="submit" id="btnSalvar">Cadastrar</button>
-                <button type="button" id="btnCancelar"
-                        class="secundario" hidden>
-                    Cancelar edição
-                </button>
-            </div>
-        </form>
+        <!-- Navegação por Abas -->
+        <nav class="tabs">
+            <button class="tab-btn active" onclick="mudarAba('produtos')">Produtos</button>
+            <button class="tab-btn" onclick="mudarAba('clientes')">Clientes</button>
+            <button class="tab-btn" onclick="mudarAba('vendas')">Vendas</button>
+        </nav>
 
         <p id="mensagem" role="status"></p>
 
-        <h2>Produtos cadastrados</h2>
+        <!-- SEÇÃO: PRODUTOS -->
+        <section id="secao-produtos" class="secao-aba">
+            <h2>Cadastro de Produtos</h2>
+            <form id="produtoForm">
+                <input type="hidden" id="produto-id">
+                <label for="produto-nome">Nome</label>
+                <input type="text" id="produto-nome" maxlength="100" required>
 
-        <div class="tabela-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Descrição</th>
-                        <th>Preço</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="listaProdutos"></tbody>
-            </table>
-        </div>
+                <label for="produto-descricao">Descrição</label>
+                <textarea id="produto-descricao" maxlength="500"></textarea>
+
+                <label for="produto-preco">Preço (R\$)</label>
+                <input type="number" id="produto-preco" min="0.01" step="0.01" required>
+
+                <div class="botoes">
+                    <button type="submit" id="btnSalvarProduto">Cadastrar Produto</button>
+                    <button type="button" id="btnCancelarProduto" class="secundario" hidden>Cancelar edição</button>
+                </div>
+            </form>
+
+            <h2>Produtos cadastrados</h2>
+            <div class="tabela-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Descrição</th>
+                            <th>Preço</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaProdutos"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: CLIENTES -->
+        <section id="secao-clientes" class="secao-aba" style="display: none;">
+            <h2>Cadastro de Clientes</h2>
+            <form id="clienteForm">
+                <input type="hidden" id="cliente-id">
+                <label for="cliente-nome">Nome</label>
+                <input type="text" id="cliente-nome" maxlength="100" required>
+
+                <label for="cliente-email">E-mail</label>
+                <input type="email" id="cliente-email" maxlength="100" required>
+
+                <label for="cliente-telefone">Telefone</label>
+                <input type="text" id="cliente-telefone" maxlength="20">
+
+                <div class="botoes">
+                    <button type="submit" id="btnSalvarCliente">Cadastrar Cliente</button>
+                    <button type="button" id="btnCancelarCliente" class="secundario" hidden>Cancelar edição</button>
+                </div>
+            </form>
+
+            <h2>Clientes cadastrados</h2>
+            <div class="tabela-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>E-mail</th>
+                            <th>Telefone</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaClientes"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: VENDAS -->
+        <section id="secao-vendas" class="secao-aba" style="display: none;">
+            <h2>Registro de Vendas</h2>
+            <form id="vendaForm">
+                <label for="venda-cliente">Cliente</label>
+                <select id="venda-cliente" required>
+                    <option value="">Selecione um cliente</option>
+                </select>
+
+                <label for="venda-produto">Produto</label>
+                <select id="venda-produto" required>
+                    <option value="">Selecione um produto</option>
+                </select>
+
+                <label for="venda-quantidade">Quantidade</label>
+                <input type="number" id="venda-quantidade" min="1" value="1" required>
+
+                <div class="botoes">
+                    <button type="submit" id="btnSalvarVenda">Registrar Venda</button>
+                </div>
+            </form>
+
+            <h2>Vendas Realizadas</h2>
+            <div class="tabela-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Valor Total</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaVendas"></tbody>
+                </table>
+            </div>
+        </section>
     </main>
 
     <script src="script.js"></script>
